@@ -1,6 +1,6 @@
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { getQueryClient } from '@/utils/getQueryClient';
-import { fetchQuest, fetchQuestManager } from '@/utils/api';
+import { fetchQuest } from '@/utils/api';
 import { Suspense } from 'react';
 import QuestClient from '@/components/QuestClient';
 import QuestManager from '@/components/QuestManager';
@@ -36,26 +36,28 @@ export default async function Page({
 	// 	queryFn: () => fetchQuest(id, slug),
 	// });
 
-	queryClient.prefetchQuery({
-		queryKey: ['questManagers'],
-		queryFn: () => fetchQuestManager('606'),
-	});
+	// queryClient.prefetchQuery({
+	// 	queryKey: ['questManagers'],
+	// 	queryFn: () => fetchQuestManager(id),
+	// });
 
 	const quest = await queryClient.fetchQuery({
-		queryKey: ['quest', id, slug],
-		queryFn: () => fetchQuest(id, slug),
+		queryKey: ['quest', slug],
+		queryFn: () => fetchQuest(slug),
 	});
 
 	return (
 		<>
 			{/* <Quest slug={slug} id={id} /> */}
 			<QuestClient quest={quest} />
-			<HydrationBoundary state={dehydrate(queryClient)}>
-				<Suspense fallback={<div>Loading...</div>}>
-					<QuestManager />
-				</Suspense>
-			</HydrationBoundary>
-			<QuestManagerClient />
+			<div className="flex flex-col p-4">
+				<HydrationBoundary state={dehydrate(queryClient)}>
+					<Suspense fallback={<div>Loading...</div>}>
+						<QuestManager id={id} />
+					</Suspense>
+				</HydrationBoundary>
+				<QuestManagerClient />
+			</div>
 		</>
 	);
 }

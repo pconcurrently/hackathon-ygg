@@ -13,12 +13,8 @@ interface QuestManagerQueryResponse {
 	}[];
 }
 
-export async function fetchQuest(
-	id: string,
-	slug: string,
-	delay?: number
-): Promise<Quest> {
-	console.log({ id, slug });
+export async function fetchQuest(slug: string, delay?: number): Promise<Quest> {
+	const id = slug.split('-').pop();
 	const response = await graphqlRequest<QuestQueryResponse>({
 		query: GET_QUEST,
 		variables: { id, slug },

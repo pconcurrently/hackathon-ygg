@@ -1,18 +1,18 @@
-'use client';
-
 import { fetchQuestManager } from '@/utils/api';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { Suspense } from 'react';
+import { getQueryClient } from '@/utils/getQueryClient';
 
-const QuestManager = () => {
-	const { data } = useSuspenseQuery({
+const QuestManager = async ({ id }: { id: string }) => {
+	const queryClient = getQueryClient();
+	const data = await queryClient.fetchQuery({
 		queryKey: ['questManager'],
-		queryFn: () => fetchQuestManager('606'),
+		queryFn: () => fetchQuestManager(id),
 	});
 	return (
-		<div>
+		<Suspense fallback={<div>Loading...</div>}>
 			<h2 className="text-2xl font-bold">Quest Manager from Server</h2>
 			<pre>{JSON.stringify(data, null, 2)}</pre>
-		</div>
+		</Suspense>
 	);
 };
 

@@ -1,10 +1,10 @@
 import { fetchQuest } from '@/utils/api';
 import { useQuery } from '@tanstack/react-query';
 
-const useQuestQuery = (id: string, slug: string, delay?: number) => {
+const useQuestQuery = (slug: string, delay?: number) => {
 	return useQuery({
-		queryKey: ['quest', id, slug],
-		queryFn: () => fetchQuest(id, slug, delay),
+		queryKey: ['quest', slug],
+		queryFn: () => fetchQuest(slug, delay),
 	});
 };
 

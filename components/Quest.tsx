@@ -6,10 +6,10 @@ import { fetchQuest } from '@/utils/api';
 import Image from 'next/image';
 import { Suspense } from 'react';
 
-const Quest = ({ slug, id }: { slug: string; id: string }) => {
+const Quest = ({ slug }: { slug: string }) => {
 	const { data: quest } = useSuspenseQuery({
-		queryKey: ['quest', id, slug],
-		queryFn: () => fetchQuest(id, slug),
+		queryKey: ['quest', slug],
+		queryFn: () => fetchQuest(slug),
 	});
 
 	return (
