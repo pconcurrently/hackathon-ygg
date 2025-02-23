@@ -1,4 +1,4 @@
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
+// import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { getQueryClient } from '@/utils/getQueryClient';
 import { fetchQuest } from '@/utils/api';
 import { Suspense } from 'react';
@@ -51,11 +51,10 @@ export default async function Page({
 			{/* <Quest slug={slug} id={id} /> */}
 			<QuestClient quest={quest} />
 			<div className="flex flex-col p-4">
-				<HydrationBoundary state={dehydrate(queryClient)}>
-					<Suspense fallback={<div>Loading...</div>}>
-						<QuestManager id={id} />
-					</Suspense>
-				</HydrationBoundary>
+				<h2 className="text-2xl font-bold">Quest Manager from Server</h2>
+				<Suspense fallback={<div>Loading...</div>}>
+					<QuestManager id={id} />
+				</Suspense>
 				<QuestManagerClient />
 			</div>
 		</>

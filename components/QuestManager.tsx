@@ -1,18 +1,19 @@
 import { fetchQuestManager } from '@/utils/api';
-import { Suspense } from 'react';
 import { getQueryClient } from '@/utils/getQueryClient';
+import { cookies } from 'next/headers';
 
 const QuestManager = async ({ id }: { id: string }) => {
 	const queryClient = getQueryClient();
+	const session = (await cookies()).get('session')?.value;
 	const data = await queryClient.fetchQuery({
 		queryKey: ['questManager'],
 		queryFn: () => fetchQuestManager(id),
 	});
 	return (
-		<Suspense fallback={<div>Loading...</div>}>
-			<h2 className="text-2xl font-bold">Quest Manager from Server</h2>
+		<div>
 			<pre>{JSON.stringify(data, null, 2)}</pre>
-		</Suspense>
+			<pre>{JSON.stringify(session, null, 2)}</pre>
+		</div>
 	);
 };
 
