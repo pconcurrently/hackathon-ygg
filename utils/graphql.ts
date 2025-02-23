@@ -29,6 +29,7 @@ export async function graphqlRequest<TData>({
 
 		return data;
 	} catch (error) {
+		console.log('error', error);
 		if (error instanceof ApolloError) {
 			throw new APIError(
 				error.message,

@@ -53,6 +53,15 @@ export const GET_QUEST = gql`
 	}
 `;
 
+export const GET_QUEST_MANAGER = gql`
+	query QuestManager($questIds: [ID!]!) {
+		questManagers(filter: { questIds: $questIds }) {
+			id
+			displayName
+		}
+	}
+`;
+
 export interface Example {
 	id: string;
 	title: string;

@@ -1,9 +1,16 @@
 import { graphqlRequest } from '@/utils/graphql';
-import { GET_QUEST } from '@/graphql/queries';
+import { GET_QUEST, GET_QUEST_MANAGER } from '@/graphql/queries';
 import type { Quest } from '@/graphql/queries';
 
 interface QuestQueryResponse {
 	quest: Quest;
+}
+
+interface QuestManagerQueryResponse {
+	questManagers: {
+		id: string;
+		displayName: string;
+	}[];
 }
 
 export async function fetchQuest(
@@ -21,4 +28,15 @@ export async function fetchQuest(
 	await new Promise((resolve) => setTimeout(resolve, delay || 3000));
 
 	return response.quest;
+}
+
+export async function fetchQuestManager(id: string) {
+	const response = await graphqlRequest<QuestManagerQueryResponse>({
+		query: GET_QUEST_MANAGER,
+		variables: { questIds: [id] },
+	});
+
+	await new Promise((resolve) => setTimeout(resolve, 3000));
+
+	return response;
 }
