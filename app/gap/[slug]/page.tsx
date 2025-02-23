@@ -4,6 +4,7 @@ import { fetchQuest, fetchQuestManager } from '@/utils/api';
 import { Suspense } from 'react';
 import QuestClient from '@/components/QuestClient';
 import QuestManager from '@/components/QuestManager';
+import QuestManagerClient from '@/components/QuestManagerClient';
 // import useQuestQuery from '@/hooks/useQuestQuery';
 
 export const experimental_ppr = true;
@@ -54,6 +55,7 @@ export default async function Page({
 					<QuestManager />
 				</Suspense>
 			</HydrationBoundary>
+			<QuestManagerClient />
 		</>
 	);
 }

@@ -10,7 +10,7 @@ const QuestManager = () => {
 	});
 	return (
 		<div>
-			<h2 className="text-2xl font-bold">Quest Manager</h2>
+			<h2 className="text-2xl font-bold">Quest Manager from Server</h2>
 			<pre>{JSON.stringify(data, null, 2)}</pre>
 		</div>
 	);
