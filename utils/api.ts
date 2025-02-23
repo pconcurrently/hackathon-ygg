@@ -26,13 +26,13 @@ export async function fetchQuest(slug: string, delay?: number): Promise<Quest> {
 	return response.quest;
 }
 
-export async function fetchQuestManager(id: string) {
+export async function fetchQuestManager(id: string, delay?: number) {
 	const response = await graphqlRequest<QuestManagerQueryResponse>({
 		query: GET_QUEST_MANAGER,
 		variables: { questIds: [id] },
 	});
 
-	await new Promise((resolve) => setTimeout(resolve, 3000));
+	await new Promise((resolve) => setTimeout(resolve, delay || 0));
 
 	return response;
 }
